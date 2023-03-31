@@ -106,5 +106,19 @@ namespace Projeto_MVC.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var curso = await _context.Curso.FirstOrDefaultAsync(x => x.Id == id);
+            if (curso == null)
+            {
+                return NotFound();
+            }
+            return View(curso);
+        }
     }
 }
